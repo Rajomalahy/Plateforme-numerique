@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme{
+    --color-mtefop-blue : #082A49;
+    --color-mtefop-red : #D92027;
+    --color-mtefop-yellow : #D4AF37;
+    --color-mtefop-light : #00AEEF;
+}
+
+/* Scrollbar personnalisée */
+aside::-webkit-scrollbar {
+  width: 6px; /* Largeur fine */
+}
+
+aside::-webkit-scrollbar-track {
+  background: transparent; /* Fond invisible */
+}
+
+aside::-webkit-scrollbar-thumb {
+  background-color: #CBD5E0; /* Gris clair */
+  border-radius: 20px; /* Bords arrondis */
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  background-color: #A0AEC0; /* Gris un peu plus foncé au survol */
+}
+
+/* Pour Firefox */
+aside {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E0 transparent;
+}
+
+
+/* Scrollbar personnalisée - Plus fine et transparente */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.3); /* Gris très transparent */
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(156, 163, 175, 0.5); /* Un peu plus visible au survol */
+}
+
+/* Pour Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
