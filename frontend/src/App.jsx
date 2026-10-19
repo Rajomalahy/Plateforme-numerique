@@ -1,5 +1,6 @@
 import DashboardLayout from './layouts/DashboardLayout'
 import DashboardCandidat from './pages/DashboardCandidat'
+import DashboardEntreprise from './layouts/DashboardEntreprise'
 import Cv from './pages/cv'
 import Candidature from './pages/Candidature'
 import Recommandation from './pages/Recommandation'
@@ -23,6 +24,13 @@ import DetailEntreprise from './pages/Detail/DetailEntreprise'
 
 import Signin from './login/SignIn'
 import Signup from './login/SignUp'
+
+import EspaceEntreprise from './pages/entreprise/EspaceEntreprise'
+import DashboardEntrepriseAccueil from './pages/entreprise/DashboardAcceuil'
+import PublierOffre from './pages/entreprise/Publier'
+import MesOffres from './pages/entreprise/MesOffres'
+import MesCandidatures from './pages/entreprise/Candidature'
+import ParametresEntreprise from './pages/entreprise/Parametre'
 import Search from './pages/Autres/search'
 
 function App() {
@@ -57,10 +65,18 @@ function App() {
 
           <Route path="document" element={<Document />} />
 
-          {/* <Route path="deconnexion" element={<Contact />} /> */}
-
           <Route path="*" element={<Search />} />
         </Route>
+
+        <Route path="/dashboardentreprise" element={<DashboardEntreprise />}>
+          <Route index element={<DashboardEntrepriseAccueil />} />
+          <Route path="profil" element={<EspaceEntreprise />} />
+          <Route path="offres" element={<MesOffres />} />
+          <Route path="publier" element={<PublierOffre />} />
+          <Route path="candidatures" element={<MesCandidatures />} />
+          <Route path="parametres" element={<ParametresEntreprise />} />
+        </Route>
+        
       </Routes>
     </>
   )

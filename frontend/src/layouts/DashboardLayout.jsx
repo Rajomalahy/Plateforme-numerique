@@ -1,5 +1,4 @@
-import logo from '../assets/logo.jpeg'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { LuLayoutDashboard,LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu"
 import { FaFileAlt, FaBars } from "react-icons/fa"
@@ -11,14 +10,43 @@ import { FaRegBell } from "react-icons/fa6"
 import { FaRegEnvelope } from "react-icons/fa"
 import { FaMagic } from "react-icons/fa"
 
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
-export default function () {
+export default function DashboardLayout () {
+
+    const navigate = useNavigate()
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(true)
    
     // État pour le menu mobile
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+
+        const storedUser = localStorage.getItem('user')
+
+        if (storedUser) {
+
+            setUser(JSON.parse(storedUser))
+
+        } else {
+            // Si aucun utilisateur n'est trouvé, on le renvoie à la page de connexion
+            navigate('/signin')
+        }
+    }, [navigate])
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        navigate('/signin')
+    }
+
+    // Si l'utilisateur n'est pas encore chargé, on affiche un petit loader pour éviter les erreurs
+    if (!user) {
+        return <div className="min-h-screen flex items-center justify-center">Chargement...</div>
+    }
 
     return (
         <>
@@ -39,13 +67,21 @@ export default function () {
                     <div className={`text-gray-800 ${isSidebarOpen ? 'gap-3 justify-start' : 'justify-center'} mb-4 flex items-center py-4 gap-3 border-b border-gray-200 `}>
 
                         <div>
-                            <p className='rounded-full border border-gray-400 text-slate-500  px-2'>R</p>
+                            <p className='rounded-full border border-gray-400 text-slate-500 px-2 w-8 h-8 flex items-center justify-center font-bold'>
+                                {(user.nom || user.email).charAt(0).toUpperCase()}
+                            </p>
                         </div>
 
                         {isSidebarOpen && (
                             <div className='whitespace-nowrap overflow-hidden'>
-                                <p className="font-semibold text-sm">Rajomalahy N.</p>
-                                <p className="text-xs text-gray-500">Demandeur d'emploi</p>
+                             
+                                <p className="font-semibold text-sm truncate">
+                                    {user.nom || user.prenom ? `${user.nom} ${user.prenom}`.trim() : user.email}
+                                </p>
+                              
+                                <p className="text-xs text-gray-500">
+                                    {user.role === 'Demandeur' ? "Demandeur d'emploi" : "Entreprise"}
+                                </p>
                             </div>
                         )}
 
@@ -117,11 +153,14 @@ export default function () {
                         </div>
                     </nav>
                     {/* Deconnexion */}
-                    <div>
-                        <Link to="/dashboard/deconnexion" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
+                    <div className="mb-4">
+                        <button 
+                            onClick={handleLogout}
+                            className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} w-full flex text-sm items-center gap-3 py-2.5 rounded-lg text-gray-800 hover:bg-red-50 transition cursor-pointer`}
+                        >
                             <FaSignOutAlt />
                             {isSidebarOpen && <span className="hidden lg:block text-sm font-medium whitespace-nowrap">Déconnexion</span>}
-                        </Link>
+                        </button>
                     </div>
 
                 </aside>

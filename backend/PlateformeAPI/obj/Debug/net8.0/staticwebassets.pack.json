@@ -1,0 +1,93 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\12b835f5-8827-4bce-b386-17dbc9020f59.jpg",
+      "PackagePath": "staticwebassets\\uploads\\12b835f5-8827-4bce-b386-17dbc9020f59.jpg"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\1f8bd35b-e21d-4626-947f-9ef6e6cbe59d.pdf",
+      "PackagePath": "staticwebassets\\uploads\\1f8bd35b-e21d-4626-947f-9ef6e6cbe59d.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\2b4e59e1-d722-4a00-a466-97629f26cffc.pdf",
+      "PackagePath": "staticwebassets\\uploads\\2b4e59e1-d722-4a00-a466-97629f26cffc.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\374d8313-be16-48a0-a0ed-83c09f10e86a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\374d8313-be16-48a0-a0ed-83c09f10e86a.jpg"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\3a9a2fed-01cf-4809-a698-c622d641893e.png",
+      "PackagePath": "staticwebassets\\uploads\\3a9a2fed-01cf-4809-a698-c622d641893e.png"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\500899d5-52ae-48c9-94fb-afc65c809c4d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\500899d5-52ae-48c9-94fb-afc65c809c4d.jpg"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\64c755d3-df69-4f3b-af74-52247935cc5e.jpg",
+      "PackagePath": "staticwebassets\\uploads\\64c755d3-df69-4f3b-af74-52247935cc5e.jpg"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\695749a6-0381-4246-9972-360b98858c4d.pdf",
+      "PackagePath": "staticwebassets\\uploads\\695749a6-0381-4246-9972-360b98858c4d.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\84267dba-1170-4082-8efb-a653eca97654.jpg",
+      "PackagePath": "staticwebassets\\uploads\\84267dba-1170-4082-8efb-a653eca97654.jpg"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\9821d9ed-8dc1-4426-9d41-2fbac2bded09.pdf",
+      "PackagePath": "staticwebassets\\uploads\\9821d9ed-8dc1-4426-9d41-2fbac2bded09.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\a9470955-c91d-48d3-89d8-a3bd7ad4ffde.pdf",
+      "PackagePath": "staticwebassets\\uploads\\a9470955-c91d-48d3-89d8-a3bd7ad4ffde.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\ad3b8c11-2dd7-4885-8c8c-9b7ff4515849.jpg",
+      "PackagePath": "staticwebassets\\uploads\\ad3b8c11-2dd7-4885-8c8c-9b7ff4515849.jpg"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\c86aefff-366d-4741-abac-6f1b569f3b6e.pdf",
+      "PackagePath": "staticwebassets\\uploads\\c86aefff-366d-4741-abac-6f1b569f3b6e.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\e028b692-41cd-4021-af45-619ea1b86af7.pdf",
+      "PackagePath": "staticwebassets\\uploads\\e028b692-41cd-4021-af45-619ea1b86af7.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\f1fd408a-237e-46e9-8897-50d3ac729902.pdf",
+      "PackagePath": "staticwebassets\\uploads\\f1fd408a-237e-46e9-8897-50d3ac729902.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\f27cb687-6c71-4867-ad9c-5b1f6ce235e3.pdf",
+      "PackagePath": "staticwebassets\\uploads\\f27cb687-6c71-4867-ad9c-5b1f6ce235e3.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\f3cb642d-a049-4962-a6c0-6f1bd84d7087.pdf",
+      "PackagePath": "staticwebassets\\uploads\\f3cb642d-a049-4962-a6c0-6f1bd84d7087.pdf"
+    },
+    {
+      "Id": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\fe845f93-681f-48fb-a6cb-69ee815fe3a0.pdf",
+      "PackagePath": "staticwebassets\\uploads\\fe845f93-681f-48fb-a6cb-69ee815fe3a0.pdf"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PlateformeAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.PlateformeAPI.props",
+      "PackagePath": "build\\PlateformeAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PlateformeAPI.props",
+      "PackagePath": "buildMultiTargeting\\PlateformeAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.PlateformeAPI.props",
+      "PackagePath": "buildTransitive\\PlateformeAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

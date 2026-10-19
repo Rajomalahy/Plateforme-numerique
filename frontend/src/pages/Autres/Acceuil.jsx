@@ -21,6 +21,7 @@ export default function Acceuil () {
             </div>
 
             <div className="">
+                
                 <div className="text-center py-8">
                     <h1 className="text-2xl font-medium">Découvrez les opportunités de stages et premier emploi</h1>
                     <p className="text-sm text-gray-500 mt-2">Consultez parmi nos plusieurs opportunités de premier emploi à Madagascar.</p>
@@ -30,6 +31,12 @@ export default function Acceuil () {
             </div>
 
             <div>
+
+                <div className="text-center py-8">
+                    <h1 className="text-2xl font-medium">Les personnes à la recherche d'emploi ou stage</h1>
+                    <p className="text-sm text-gray-500 mt-2">Découvrez des jeunes talentueux prêts à intégrer votre entreprise</p>
+                </div>
+
                 <Demandeur/>
             </div>
 

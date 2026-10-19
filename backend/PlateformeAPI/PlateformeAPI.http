@@ -1,4 +1,4 @@
-@PlateformeAPI_HostAddress = http://localhost:5080
+@PlateformeAPI_HostAddress = http://localhost:5137
 
 GET {{PlateformeAPI_HostAddress}}/weatherforecast/
 Accept: application/json

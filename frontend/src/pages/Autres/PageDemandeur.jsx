@@ -8,40 +8,10 @@ import { IoDocumentTextOutline } from "react-icons/io5"
 import { FaHome } from "react-icons/fa"
 import { Link } from 'react-router-dom'
 
+import Demandeur from "./Demandeur"
+
 export default function PageDemandeur () {
 
-        const demandeur = [
-            {
-                id : 1,
-                profil : un,
-                nom : 'Rajomalahy N.',
-                diplome : 'Master2',
-                adresse : 'Fianarantsoa',
-                branche : 'Agronomie',
-                lieu : 'sur site',
-                type : 'CDD'
-            },
-            {
-                id : 2,
-                profil : deux,
-                nom : 'Rajomalahy N.',
-                diplome : 'Master2',
-                adresse : 'Fianarantsoa',
-                branche : 'Agronomie',
-                lieu : 'sur site',
-                type : 'CDD'
-            },
-            {
-                id : 3,
-                profil : trois,
-                nom : 'Rajomalahy N.',
-                diplome : 'Master2',
-                adresse : 'Fianarantsoa',
-                branche : 'Agronomie',
-                lieu : 'sur site',
-                type : 'CDD'
-            }        
-        ]
 
     return(
         <div className="mt-20">
@@ -100,50 +70,8 @@ export default function PageDemandeur () {
             
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10 px-8">
-                    {
-                        demandeur.map((demande) => (
-                            <div key={demande.id} className="border border-gray-200 rounded-xl shadow-lg overflow-hidden">
-                                
-                                <div >
-
-                                    <div className="flex justify-center ">
-                                        <img src={demande.profil} alt="" className="w-16 h-16 mt-2 object-contain rounded-full"/>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div className="font-medium text-lg text-gray-800">
-                                            {demande.nom}
-                                        </div>
-
-                                        <div className="text-gray-500 mt-3 text-sm text-center justify-center whitespace-nowrap flex items-center gap-6">
-                                            <div>{demande.diplome}</div>
-
-                                            <div className="flex items-center gap-1"> 
-                                                <MdOutlinePlace/>
-                                                {demande.adresse} 
-                                            </div>
-
-                                            <div> {demande.branche} </div>
-                                        </div>
-
-                                        <div className="text-gray-500 mt-3 justify-center text-sm whitespace-nowrap flex items-center gap-6">
-                                            <div className="bg-gray-100 px-3 py-1 rounded-full"> {demande.lieu} </div>
-                                            <div className="bg-gray-100 px-3 py-1 rounded-full flex items-center gap-1"> 
-                                                <IoDocumentTextOutline />
-                                                {demande.type} 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border-t border-gray-200 py-4 flex justify-center mt-8">
-                                    <Link to="/dashboard" className="bg-mtefop-blue px-4 py-2 text-white rounded-lg text-sm font-semibold">Voir profil</Link>
-                                </div>
-
-                            </div>
-                        ))
-                    }
+            <div className="mt-10">
+                <Demandeur/>
             </div>
         </div>
     )
