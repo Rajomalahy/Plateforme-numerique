@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -113,4 +114,39 @@ public class AuthController : ControllerBase
             EstProfilComplet = utilisateur.EstProfilComplet
         });
     }
+
+
+    [HttpPost("seed-admin")]
+    [AllowAnonymous]
+    public async Task<IActionResult> SeedAdmin()
+    {
+        
+        var adminExists = await _context.Utilisateurs.AnyAsync(u => u.Role == Role.Administrateur);
+        if (adminExists)
+            return BadRequest(new { message = "Un administrateur existe déjà." });
+
+        var admin = new Admin
+        {
+            Email = "admin@ministere.mg",
+            Nom = "Administrateur Système",
+            Matricule = "MAT001",
+            
+            Role = Role.Administrateur, 
+            
+            DateInscription = DateTime.UtcNow,
+            EstProfilComplet = true
+        };
+
+        admin.MotDePasseHash = BCrypt.Net.BCrypt.HashPassword("Admin123!");
+
+        _context.Utilisateurs.Add(admin);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { 
+            message = "Administrateur créé avec succès !",
+            email = admin.Email,
+            motDePasse = "Admin123!"
+        });
+    }
+
 }

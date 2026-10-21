@@ -9,6 +9,7 @@ import Profil from './pages/Profil'
 import Document from './pages/Document'
 import Notifications from './pages/Notification'
 import Messages from './pages/Message'
+import ListeOffres from './pages/ListeOffre'
 
 import { Routes, Route } from 'react-router-dom'
 
@@ -31,6 +32,14 @@ import PublierOffre from './pages/entreprise/Publier'
 import MesOffres from './pages/entreprise/MesOffres'
 import MesCandidatures from './pages/entreprise/Candidature'
 import ParametresEntreprise from './pages/entreprise/Parametre'
+
+import GestionAdmins from './pages/admin/GestionAdmins'
+import DashboardAdmin from './layouts/DashboardAdmin'
+import SignInAdmin from './login/SignInAdmin'
+import Compétences from './pages/admin/Competence'
+import Ville from './pages/admin/Ville'
+import ModerationOffres from './pages/admin/ModerationOffres'
+import GestionUtilisateurs from './pages/admin/GestionUtilisateurs'
 import Search from './pages/Autres/search'
 
 function App() {
@@ -39,6 +48,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Header />}>
+
           <Route index element={<Acceuil />} />
           <Route path="offre" element={<PageOffre />} /> 
           <Route path="entreprise" element={<PageEntreprise />} />
@@ -58,6 +68,7 @@ function App() {
 
           <Route path="offre" element={<Recommandation />} />
           <Route path="candidature" element={<Candidature />} />
+          <Route path="listeOffre" element={<ListeOffres />} />
           <Route path="entretien" element={<Entretien />} />
 
           <Route path="message" element={<Messages />} />
@@ -73,8 +84,25 @@ function App() {
           <Route path="profil" element={<EspaceEntreprise />} />
           <Route path="offres" element={<MesOffres />} />
           <Route path="publier" element={<PublierOffre />} />
+          <Route path="offres/modifier/:id" element={<PublierOffre />} />
           <Route path="candidatures" element={<MesCandidatures />} />
           <Route path="parametres" element={<ParametresEntreprise />} />
+        </Route>
+
+        <Route path="/admin/login" element={<SignInAdmin />} />
+
+        <Route path="/admin" element={<DashboardAdmin />}>
+            <Route index element={
+                <div className="text-center py-20">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-4">Bienvenue dans le panneau d'administration</h2>
+                    <p className="text-gray-600">Sélectionnez une option dans le menu pour commencer.</p>
+                </div>
+            } />
+            <Route path="villes" element={<Ville />} />
+            <Route path="admins" element={<GestionAdmins />} />
+            <Route path="competences" element={<Compétences />} />
+            <Route path="utilisateurs" element={<GestionUtilisateurs />} />
+            <Route path="moderation-offres" element={<ModerationOffres />} />
         </Route>
         
       </Routes>

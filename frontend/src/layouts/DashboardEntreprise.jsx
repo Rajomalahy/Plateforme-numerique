@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 
 import { LuLayoutDashboard,LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu"
-import { FaFileAlt, FaBars } from "react-icons/fa"
+import { FaBars } from "react-icons/fa"
 import { FaSignOutAlt } from "react-icons/fa"
 import { FaRegBell } from "react-icons/fa6"
 import { FaRegEnvelope } from "react-icons/fa"
+import { FaFileAlt, FaBriefcase, FaUsers, FaCog, FaPlusCircle, FaUser } from 'react-icons/fa'
 
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
@@ -92,28 +93,28 @@ export default function DashboardEntreprise() {
                             </Link>  
 
                             <Link to="/dashboardentreprise/profil" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
-                                <FaFileAlt />
+                                <FaUser />
                                 {isSidebarOpen && <span className='hidden lg:block text-sm font-medium'>Profil</span>}
                             </Link>                         
 
                             <Link to="/dashboardentreprise/offres" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
-                                <FaFileAlt />
+                                <FaBriefcase/>
                                 {isSidebarOpen && <span className='hidden lg:block text-sm font-medium'>Offres</span>}
-                            </Link>
-
-                            <Link to="/dashboardentreprise/parametres" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
-                                <FaFileAlt />
-                                {isSidebarOpen && <span className='hidden lg:block text-sm font-medium'>Parametre</span>}
-                            </Link>
+                            </Link>                           
 
                             <Link to="/dashboardentreprise/candidatures" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
-                                <FaFileAlt />
+                                <FaUsers/>
                                 {isSidebarOpen && <span className='hidden lg:block text-sm font-medium'>Candidature</span>}
                             </Link>
 
                             <Link to="/dashboardentreprise/publier" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
-                                <FaFileAlt />
+                                <FaPlusCircle/>
                                 {isSidebarOpen && <span className='hidden lg:block text-sm font-medium'>Publier</span>}
+                            </Link>
+
+                            <Link to="/dashboardentreprise/parametres" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
+                                <FaCog/>
+                                {isSidebarOpen && <span className='hidden lg:block text-sm font-medium'>Parametre</span>}
                             </Link>
                         </div>
                     </nav>

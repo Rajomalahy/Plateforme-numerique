@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xE6hNM1cLf593dCAqy9IsL6uekfNOMHqvuMeuDcARwg=",
+  "Hash": "I+gLiYW67beCFHc9Gc2zrMc5NX4u/4Bw2kYDpMeIYP0=",
   "Source": "PlateformeAPI",
   "BasePath": "_content/PlateformeAPI",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\12b835f5-8827-4bce-b386-17dbc9020f59.jpg"
+    },
+    {
+      "Identity": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\16d9e9ae-15c3-4d0c-852b-be11dd4e8389.png",
+      "SourceId": "PlateformeAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\",
+      "BasePath": "_content/PlateformeAPI",
+      "RelativePath": "uploads/16d9e9ae-15c3-4d0c-852b-be11dd4e8389.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\16d9e9ae-15c3-4d0c-852b-be11dd4e8389.png"
     },
     {
       "Identity": "D:\\M2\\Memoire de fin d'etude\\Plateforme numerique\\backend\\PlateformeAPI\\wwwroot\\uploads\\1f8bd35b-e21d-4626-947f-9ef6e6cbe59d.pdf",

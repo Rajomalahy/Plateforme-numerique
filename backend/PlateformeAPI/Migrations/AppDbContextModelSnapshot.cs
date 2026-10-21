@@ -208,6 +208,9 @@ namespace PlateformeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("EstBloqué")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("EstProfilComplet")
                         .HasColumnType("boolean");
 

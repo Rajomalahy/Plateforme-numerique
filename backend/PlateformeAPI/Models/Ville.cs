@@ -14,6 +14,5 @@ public class Ville
     [MaxLength(100)]
     public string? Region { get; set; } 
 
-    // ✅ CORRECTION : "Offre" au singulier, pas "Offres"
     public ICollection<Offres> Offres { get; set; } = new List<Offres>();
 }

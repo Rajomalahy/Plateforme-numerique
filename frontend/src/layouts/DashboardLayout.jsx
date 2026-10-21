@@ -121,6 +121,11 @@ export default function DashboardLayout () {
                                 {isSidebarOpen && <span className="hidden lg:block text-sm font-medium">Candidatures</span>}
                             </Link>
 
+                            <Link to="/dashboard/listeOffre" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
+                                <FaGraduationCap />
+                                {isSidebarOpen && <span className="hidden lg:block text-sm font-medium">Offres</span>}
+                            </Link>
+
                             <Link to="/dashboard/entretien" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
                                 <FaCalendarAlt />
                                 {isSidebarOpen && <span className="hidden lg:block text-sm font-medium">Entretiens</span>}

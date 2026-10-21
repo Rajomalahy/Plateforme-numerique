@@ -6,7 +6,7 @@ export default function ParametresEntreprise() {
     const navigate = useNavigate()
     
     const handleDeleteAccount = () => {
-        if(window.confirm("⚠️ Êtes-vous sûr ? Cette action supprimera définitivement votre entreprise et toutes vos offres.")) {
+        if(window.confirm("Êtes-vous sûr ? Cette action supprimera définitivement votre entreprise et toutes vos offres.")) {
             // Appel API de suppression ici
             localStorage.clear()
             navigate('/signin')

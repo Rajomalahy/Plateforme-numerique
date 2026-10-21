@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FaBriefcase, FaUsers, FaClock, FaChartLine } from 'react-icons/fa'
-import { getMesOffres, getMesCandidatures } from '../../Services/Service'
+import { getMesOffres, getMesCandidaturesEntreprise } from '../../Services/Service'
 
 export default function DashboardEntrepriseAccueil() {
     const [stats, setStats] = useState({ offres: 0, candidatures: 0, enAttente: 0 })
@@ -12,7 +12,7 @@ export default function DashboardEntrepriseAccueil() {
             try {
                 const [offres, candidatures] = await Promise.all([
                     getMesOffres(token),
-                    getMesCandidatures(token)
+                    getMesCandidaturesEntreprise(token)
                 ])
                 setStats({
                     offres: offres.length,
