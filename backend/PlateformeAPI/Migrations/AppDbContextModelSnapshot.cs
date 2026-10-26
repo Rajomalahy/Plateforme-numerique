@@ -76,6 +76,83 @@ namespace PlateformeAPI.Migrations
                     b.ToTable("Competences");
                 });
 
+            modelBuilder.Entity("PlateformeAPI.Models.DocumentCandidat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAjout")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdCandidat")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Titre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("TypeDocument")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("UrlFichier")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCandidat");
+
+                    b.ToTable("DocumentsCandidat");
+                });
+
+            modelBuilder.Entity("PlateformeAPI.Models.Entretien", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Commentaire")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime>("DateCreation")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateHeure")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdCandidature")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("LienVisio")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Lieu")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCandidature");
+
+                    b.ToTable("Entretiens");
+                });
+
             modelBuilder.Entity("PlateformeAPI.Models.HistoriqueCandidature", b =>
                 {
                     b.Property<int>("Id")
@@ -400,6 +477,28 @@ namespace PlateformeAPI.Migrations
                     b.Navigation("Candidat");
 
                     b.Navigation("Offre");
+                });
+
+            modelBuilder.Entity("PlateformeAPI.Models.DocumentCandidat", b =>
+                {
+                    b.HasOne("PlateformeAPI.Models.Demandeur", "Candidat")
+                        .WithMany()
+                        .HasForeignKey("IdCandidat")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidat");
+                });
+
+            modelBuilder.Entity("PlateformeAPI.Models.Entretien", b =>
+                {
+                    b.HasOne("PlateformeAPI.Models.Candidatures", "Candidature")
+                        .WithMany()
+                        .HasForeignKey("IdCandidature")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidature");
                 });
 
             modelBuilder.Entity("PlateformeAPI.Models.HistoriqueCandidature", b =>

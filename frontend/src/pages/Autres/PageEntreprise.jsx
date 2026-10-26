@@ -42,7 +42,7 @@ export default function PageEntreprise() {
         ]
     
     return (
-        <div className="mt-20">
+        <div className="mt-30">
 
             <div className="max-w-7xl mx-auto">
                 <nav className="flex items-center gap-2 text-sm text-gray-600 flex-wrap">

@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import { GoogleLogin } from '@react-oauth/google'
 
-import { registerUser } from '../Services/Service'
+import { registerUser, loginWithGoogle} from '../Services/Service'
 
 export default function Signup() {
+
     const navigate = useNavigate()
+
     const [showPassword, setShowPassword] = useState(false)
+
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     
     const [formData, setFormData] = useState({
@@ -19,6 +23,7 @@ export default function Signup() {
     })
 
     const [error, setError] = useState('')
+
     const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
@@ -27,10 +32,11 @@ export default function Signup() {
     }
 
     const handleSubmit = async (e) => {
+
         e.preventDefault()
+
         setError('')
 
-        // 1. Vérifications locales (Frontend uniquement)
         if (formData.password !== formData.confirmPassword) {
             setError('Les mots de passe ne correspondent pas.')
             return
@@ -43,7 +49,6 @@ export default function Signup() {
 
         setLoading(true)
 
-        // 2. Préparation des données pour le backend (RG6 respecté : on n'envoie PAS confirmPassword)
         const dataToSend = {
             email: formData.email,
             motDePasse: formData.password,
@@ -51,24 +56,54 @@ export default function Signup() {
         }
 
         try {
-            // 3. Appel au service (plus propre que fetch)
+
             await registerUser(dataToSend)
             
-            // 4. Succès
             alert('Inscription réussie ! Vous pouvez maintenant vous connecter.')
+
             navigate('/signin')
             
         } catch (err) {
-            // 5. Gestion de l'erreur (le message vient du service ou du backend)
+
             setError(err.message)
+
         } finally {
+
             setLoading(false)
+
         }
     }
 
-    const handleGoogleLogin = () => {
+    const handleGoogleSuccess = async (credentialResponse) => {
 
-        console.log('Connexion avec Google')
+        setLoading(true)
+
+        setError('')
+
+        try {
+            
+            const response = await loginWithGoogle(credentialResponse.credential, formData.role)
+            
+            localStorage.setItem('token', response.token)
+            localStorage.setItem('role', response.role)
+            
+            if (response.role === 'Entreprise') navigate('/dashboardentreprise')
+            else navigate('/dashboard')
+            
+        } catch (err) {
+
+            setError(err.message || "Erreur lors de la connexion Google.")
+
+        } finally {
+
+            setLoading(false)
+
+        }
+    }
+
+    const handleGoogleError = () => {
+        setError("La connexion avec Google a échoué. Veuillez réessayer.")
+        setLoading(false)
     }
 
     return (
@@ -94,13 +129,16 @@ export default function Signup() {
                     <p className="text-gray-600 text-sm md:text-base">pour accéder à l'espace Recruteur</p>
                 </div>
 
-                <button
-                    onClick={handleGoogleLogin}
-                    className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-2 rounded-lg transition mb-6"
-                >
-                    <FcGoogle className="text-xl" />
-                    Se connecter avec Google
-                </button>
+                <div className="flex justify-center mb-6">
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleError}
+                        text="signup_with" 
+                        theme="outline"
+                        size="large"
+                        width="350"
+                    />
+                </div>
 
                 {/* Séparateur */}
                 <div className="relative mb-6">

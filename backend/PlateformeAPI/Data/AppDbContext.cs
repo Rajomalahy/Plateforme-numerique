@@ -18,6 +18,8 @@ public class AppDbContext : DbContext
     public DbSet<Candidatures> Candidatures { get; set; }
     public DbSet<HistoriqueCandidature> HistoriquesCandidature { get; set; }
     public DbSet<OffreCompetence> OffreCompetences { get; set; }
+    public DbSet<Entretien> Entretiens { get; set; }
+    public DbSet<DocumentCandidat> DocumentsCandidat { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

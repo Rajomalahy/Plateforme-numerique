@@ -7,8 +7,8 @@ import Recommandation from './pages/Recommandation'
 import Entretien from './pages/Entretien'
 import Profil from './pages/Profil'
 import Document from './pages/Document'
-import Notifications from './pages/Notification'
-import Messages from './pages/Message'
+// import Notifications from './pages/Notification'
+// import Messages from './pages/Message'
 import ListeOffres from './pages/ListeOffre'
 
 import { Routes, Route } from 'react-router-dom'
@@ -19,6 +19,10 @@ import Acceuil from './pages/Autres/Acceuil'
 import PageEntreprise from './pages/Autres/PageEntreprise'
 import PageDemandeur from './pages/Autres/PageDemandeur'
 import PageOffre from './pages/Autres/PageOffre'
+import Contact from './pages/Autres/Contact'
+import Article from './pages/Detail/Article'
+import APropos from './pages/Detail/Apropos'
+import Footer from './pages/Autres/Footer'
 
 import DetailOffre from './pages/Detail/DetailOffre'
 import DetailEntreprise from './pages/Detail/DetailEntreprise'
@@ -40,12 +44,16 @@ import Compétences from './pages/admin/Competence'
 import Ville from './pages/admin/Ville'
 import ModerationOffres from './pages/admin/ModerationOffres'
 import GestionUtilisateurs from './pages/admin/GestionUtilisateurs'
+
+import { GoogleOAuthProvider } from '@react-oauth/google' 
 import Search from './pages/Autres/search'
 
 function App() {
 
+  const GOOGLE_CLIENT_ID = "888223918819-q3iofrdi2pkl5pqmc799c5nv0n66gcpi.apps.googleusercontent.com"
+
   return (
-    <>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <Routes>
         <Route path="/" element={<Header />}>
 
@@ -53,8 +61,12 @@ function App() {
           <Route path="offre" element={<PageOffre />} /> 
           <Route path="entreprise" element={<PageEntreprise />} />
           <Route path="demandeur" element={<PageDemandeur />} /> 
-          <Route path="detailoffre" element={<DetailOffre />} />
-          <Route path="detailEntreprise" element={<DetailEntreprise />} />
+          <Route path="detailoffre/:id" element={<DetailOffre />} />         
+          <Route path="detailEntreprise/:id" element={<DetailEntreprise />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="article" element={<Article />} />
+          <Route path="apropos" element={<APropos />} />
+          <Route path="footer" element={<Footer />} />
 
         </Route>
 
@@ -71,8 +83,8 @@ function App() {
           <Route path="listeOffre" element={<ListeOffres />} />
           <Route path="entretien" element={<Entretien />} />
 
-          <Route path="message" element={<Messages />} />
-          <Route path="notification" element={<Notifications />} />
+          {/* <Route path="message" element={<Messages />} /> */}
+          {/* <Route path="notification" element={<Notifications />} /> */}
 
           <Route path="document" element={<Document />} />
 
@@ -106,7 +118,7 @@ function App() {
         </Route>
         
       </Routes>
-    </>
+    </GoogleOAuthProvider>
   )
 }
 

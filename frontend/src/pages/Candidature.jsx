@@ -60,7 +60,7 @@ export default function MesCandidatures() {
     return (
         <div className="rounded-t-md bg-[#F5F6FA] min-h-screen pb-10">
 
-            <div className="text-center py-6 bg-white border-b border-gray-200 mb-6">
+            <div className="text-center py-4 mb-6">
                 <h1 className="text-2xl font-bold text-gray-800 mb-2">Mes Candidatures</h1>
                 <p className="text-gray-500 text-sm">
                     Retrouvez toutes vos candidatures envoyées aux entreprises et suivez leur évolution.

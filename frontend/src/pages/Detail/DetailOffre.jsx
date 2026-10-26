@@ -1,82 +1,106 @@
-import { Link } from 'react-router-dom'
-import un from '../../assets/un.jpg'
+import { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { 
-    FaHome, 
-    FaBriefcase, 
-    FaMapMarkerAlt, 
-    FaCalendarAlt, 
-    FaFileAlt, 
-    FaUsers, 
-    FaBuilding, 
-    FaPaperPlane, 
-    FaShareAlt,
-    FaArrowLeft,
-    FaBullseye,
-    FaBoxOpen
+    FaHome, FaMapMarkerAlt, FaCalendarAlt, 
+    FaFileAlt, FaBuilding, FaPaperPlane, FaShareAlt,
+    FaArrowLeft, FaBuilding as FaBuildingIcon
 } from 'react-icons/fa'
+import { getOffreDetailPublique, postuler } from '../../Services/Service'
 
 export default function DetailOffre() {
 
-    // Données de l'offre (à remplacer par un appel API)
-    const offre = {
-        titre: 'Stage Pré-embauche – UGC Creator / Content Creator (Fès)',
-        entreprise: 'Ri Digital Communication',
-        logo: un,
-        lieu: 'Fès',
-        date: 'Il y a 10 heures',
-        type: 'Stage',
-        contrat: 'Stage Pré-embauche',
-        presence: 'Sur site',
-        secteur: 'Services aux entreprises',
-        description: `Ri Communication Digitale recrute un stagiaire UGC Creator / Content Creator à Fès. Si vous êtes à l'aise face caméra, passionné par les réseaux sociaux (TikTok, Reels, Instagram) et créatif, cette opportunité est pour vous.
+    const { id } = useParams() 
+    const navigate = useNavigate()
 
-Vous participerez activement à la création de contenus, au montage vidéo et à la stratégie de communication digitale pour nos clients. Stage pré-embauche avec un réel accompagnement et une montée en compétences. Postulez dès maintenant sur Stagiaires.ma pour rejoindre une équipe dynamique et booster votre carrière dans le marketing digital.
+    const [offre, setOffre] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-Tu es à l'aise face à la caméra, tu comprends les codes de TikTok, Instagram et Reels, et tu as envie de transformer des idées en contenus percutants ? Cette opportunité est pour toi !`,
-        missions: [
-            'Créer des contenus UGC pour nos clients et leurs marques.',
-            'Concevoir et tourner des vidéos courtes (Reels, TikTok, Stories).',
-            'Participer à la recherche d\'idées, de concepts et de tendances.',
-            'Écrire ou adapter des scripts simples et naturels.',
-            'Présenter des produits, services ou concepts face caméra.',
-            'Participer aux shootings et productions de contenus.',
-            'Collaborer avec l\'équipe créative, social media et marketing.'
-        ],
-        ceQueNousProposons: [
-            'Un stage pré-embauche au sein de Ri Communication Digitale.',
-            'Participation à de vrais projets clients.',
-            'Une expérience concrète dans l\'univers du digital et de la création de contenu.',
-            'Accompagnement et montée en compétences.',
-            'Possibilité d\'intégrer l\'équipe à l\'issue du stage selon les résultats et les besoins.',
-            'Lieu : Fès.'
-        ],
-        profil: [
-            'Formation en marketing digital, communication, audiovisuel ou domaine similaire.',
-            'Excellente expression orale et écrite en français.',
-            'Créativité, sens de l\'esthétique et curiosité pour les tendances digitales.',
-            'Maîtrise des outils de montage vidéo (CapCut, Premiere Pro, etc.).',
-            'Sens du storytelling et capacité à proposer des idées innovantes.'
-        ]
+    useEffect(() => {
+        const fetchOffre = async () => {
+            try {
+                setLoading(true)
+                const data = await getOffreDetailPublique(id)
+                setOffre(data)
+            } catch (err) {
+                setError("Impossible de charger les détails de cette offre.")
+                console.error(err)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        if (id) {
+            fetchOffre()
+        }
+    }, [id])
+
+    // Affichage pendant le chargement
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center mt-20">
+                <p className="text-gray-500 text-lg">Chargement de l'offre en cours...</p>
+            </div>
+        )
+    }
+
+    // Affichage en cas d'erreur
+    if (error || !offre) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center mt-20">
+                <div className="text-center">
+                    <p className="text-red-500 text-lg mb-4">{error || "Offre introuvable."}</p>
+                    <Link to="/offre" className="text-[#3730A3] hover:underline font-medium">
+                        ← Retour à la liste des offres
+                    </Link>
+                </div>
+            </div>
+        )
+    }
+
+      
+    const handlePostuler = async () => {
+        const token = localStorage.getItem('token')
+        const role = localStorage.getItem('role')
+        
+       
+        if (!token || role !== 'Demandeur') {
+        
+            alert("Vous devez être connecté en tant que candidat pour postuler à une offre.")
+            navigate('/signin')
+            return 
+        }
+
+        try {
+            
+            await postuler(id, token) 
+            
+       
+            alert(" Votre candidature a été envoyée avec succès !")
+            navigate('/dashboard/candidature') 
+            
+        } catch (error) {
+
+            alert(error.message || "Une erreur est survenue lors de l'envoi de votre candidature.")
+        }
     }
 
     return (
         <div className="min-h-screen bg-gray-50 mt-20">
             
+            {/* BREADCRUMB */}
             <div className="bg-gray-100 py-3">
-                <div className="max-w-7xl mx-auto">
-                    <nav className="flex items-center gap-2 text-sm text-gray-600">
-                        <Link to="/" className="hover:text-gray-900 transition">
-                            <FaHome className="text-gray-500" />
+                <div className="max-w-7xl mx-auto px-4">
+                    <nav className="flex items-center gap-2 text-sm text-gray-600 flex-wrap">
+                        <Link to="/" className="hover:text-gray-900 transition flex items-center gap-1">
+                            <FaHome className="text-gray-500" /> Accueil
                         </Link>
-
                         <span className="text-gray-400">›</span>
-
-                        <Link to="/offres" className="hover:text-gray-900 text-xs transition">
+                        <Link to="/offre" className="hover:text-gray-900 transition">
                             Offres d'emploi
                         </Link>
-                        <span className="text-gray-400 font-bold">›</span>
-
-                        <span className="text-gray-900 font-medium text-xs truncate">
+                        <span className="text-gray-400">›</span>
+                        <span className="text-gray-900 font-medium text-xs truncate max-w-[200px]">
                             {offre.titre}
                         </span>
                     </nav>
@@ -84,12 +108,11 @@ Tu es à l'aise face à la caméra, tu comprends les codes de TikTok, Instagram 
             </div>
 
             {/* HEADER avec gradient */}
-            <div className="bg-[#082A49] py-12 px-4 mt-2 relative">
+            <div className="bg-[#082A49] py-12 px-4 relative">
                 <div className="max-w-7xl mx-auto">
-                    {/* Bouton retour */}
                     <Link 
                         to="/offre"
-                        className="absolute top-4 left-4 bg-white p-2 rounded-lg text-xs shadow-md hover:bg-gray-50 transition"
+                        className="absolute top-4 left-4 bg-white p-2 rounded-lg shadow-md hover:bg-gray-50 transition"
                     >
                         <FaArrowLeft className="text-gray-700" />
                     </Link>
@@ -97,149 +120,128 @@ Tu es à l'aise face à la caméra, tu comprends les codes de TikTok, Instagram 
             </div>
 
             {/* CONTENU PRINCIPAL */}
-            <div className="max-w-7xl mx-auto px-4 -mt-8 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 -mt-8 relative z-10 pb-10">
                 
                 {/* CARTE PRINCIPALE */}
                 <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
-                    
-                    {/* Header de l'offre */}
                     <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
                         
                         {/* Logo entreprise */}
-                        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <img 
-                                src={offre.logo} 
-                                alt={offre.entreprise}
-                                className="w-12 h-12 object-contain"
-                            />
+                        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-gray-200">
+                            {offre.entrepriseLogo ? (
+                                <img 
+                                    src={offre.entrepriseLogo} 
+                                    alt={offre.entrepriseNom}
+                                    className="w-12 h-12 object-contain"
+                                />
+                            ) : (
+                                <FaBuildingIcon className="text-2xl text-gray-400" />
+                            )}
                         </div>
 
                         {/* Infos */}
                         <div className="flex-1">
-                            <h1 className="text-sm md:text-2xl font-bold text-gray-900 mb-2">
+                            <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                                 {offre.titre}
                             </h1>
-                            <p className="text-gray-600 text-xs md:text-base">
-                                {offre.entreprise}
+                            <p className="text-gray-600 text-sm md:text-base font-medium">
+                                {offre.entrepriseNom}
                             </p>
                         </div>
 
                         {/* Boutons d'action */}
-                        <div className="flex gap-2">
-                            <button className="flex-1 md:flex-none bg-[#D4AF37] text-white px-3 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 transition shadow-md">
+                        <div className="flex gap-2 mt-4 md:mt-0">
+                            <button 
+                                onClick={handlePostuler}
+                                className="flex-1 md:flex-none bg-[#3730A3] hover:bg-[#2e2885] text-white px-4 py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2 transition shadow-md text-sm"
+                            >
                                 <FaPaperPlane />
-                                <span className="text-sm">Postuler maintenant</span>
+                                <span>Postuler maintenant</span>
                             </button>
-                            <button className="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-lg transition">
+                            <button className="bg-gray-100 hover:bg-gray-200 text-gray-800 p-2.5 rounded-lg transition">
                                 <FaShareAlt />
                             </button>
                         </div>
                     </div>
 
-                    {/* Tags/Badges */}
                     <div className="flex flex-wrap gap-2 md:gap-3">
-                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs">
-                            <FaMapMarkerAlt className="text-gray-500" />
-                            {offre.lieu}
+                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs md:text-sm">
+                            <FaMapMarkerAlt className="text-[#3730A3]" />
+                            {offre.ville}
                         </span>
-                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs">
-                            <FaCalendarAlt className="text-gray-500" />
-                            {offre.date}
+                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs md:text-sm">
+                            <FaCalendarAlt className="text-[#3730A3]" />
+                            Publié le {new Date(offre.datePublication).toLocaleDateString('fr-FR')}
                         </span>
-                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs">
-                            <FaFileAlt className="text-gray-500" />
-                            {offre.type}
+                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs md:text-sm">
+                            <FaFileAlt className="text-[#3730A3]" />
+                            {offre.typeContrat}
                         </span>
-                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs">
-                            <FaBriefcase className="text-gray-500" />
-                            {offre.contrat}
-                        </span>
-                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs">
-                            <FaUsers className="text-gray-500" />
-                            {offre.presence}
-                        </span>
-                        <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs">
-                            <FaBuilding className="text-gray-500" />
-                            {offre.secteur}
-                        </span>
+                        {offre.secteur && (
+                            <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs md:text-sm">
+                                <FaBuilding className="text-[#3730A3]" />
+                                {offre.secteur}
+                            </span>
+                        )}
                     </div>
-
                 </div>
 
-                {/* DESCRIPTION DU POSTE */}
                 <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         
-                        {/* Contenu principal (2/3) */}
                         <div className="lg:col-span-2">
                             <h2 className="text-xl font-bold text-gray-900 mb-4">
                                 Description du poste
                             </h2>
                             
-                            <div className="text-gray-700 leading-relaxed mb-6 whitespace-pre-line">
-                                {offre.description}
+                            <div className="text-gray-700 leading-relaxed mb-8 whitespace-pre-line">
+                                {offre.description || "Aucune description n'est disponible pour cette offre."}
                             </div>
 
-                            {/* Missions */}
-                            <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                <FaBullseye className="text-red-500" />
-                                Tes missions
-                            </h3>
-                            <ul className="list-disc list-inside space-y-2 text-gray-700 mb-6 ml-2">
-                                {offre.missions.map((mission, index) => (
-                                    <li key={index} className="leading-relaxed">
-                                        {mission}
-                                    </li>
-                                ))}
-                            </ul>
+                        </div>
 
-                            {/* Ce que nous proposons */}
-                            <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                <FaBoxOpen className="text-orange-500" />
-                                Ce que nous proposons
-                            </h3>
-                            <ul className="list-disc list-inside space-y-2 text-gray-700 mb-6 ml-2">
-                                {offre.ceQueNousProposons.map((item, index) => (
-                                    <li key={index} className="leading-relaxed">
-                                        {item}
+                        <div className="lg:col-span-1">
+                            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 sticky top-24">
+                                <h3 className="font-bold text-gray-900 mb-4">Résumé de l'offre</h3>
+                                <ul className="space-y-4 text-sm">
+                                    <li className="flex justify-between border-b border-gray-200 pb-2">
+                                        <span className="text-gray-500">Type de contrat</span>
+                                        <span className="font-medium text-gray-900">{offre.typeContrat}</span>
                                     </li>
-                                ))}
-                            </ul>
-
-                            {/* Profil recherché */}
-                            <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                <FaUsers className="text-blue-500" />
-                                Profil recherché
-                            </h3>
-                            <ul className="list-disc list-inside space-y-2 text-gray-700 ml-2">
-                                {offre.profil.map((item, index) => (
-                                    <li key={index} className="leading-relaxed">
-                                        {item}
+                                    <li className="flex justify-between border-b border-gray-200 pb-2">
+                                        <span className="text-gray-500">Localisation</span>
+                                        <span className="font-medium text-gray-900">{offre.ville}</span>
                                     </li>
-                                ))}
-                            </ul>
+                                    {offre.salaireMin && offre.salaireMax && (
+                                        <li className="flex justify-between border-b border-gray-200 pb-2">
+                                            <span className="text-gray-500">Salaire</span>
+                                            <span className="font-medium text-gray-900">
+                                                {offre.salaireMin} - {offre.salaireMax} Ar
+                                            </span>
+                                        </li>
+                                    )}
+                                    <li className="flex justify-between pt-2">
+                                        <span className="text-gray-500">Date limite</span>
+                                        <span className="font-medium text-red-600">
+                                            {offre.dateLimite ? new Date(offre.dateLimite).toLocaleDateString('fr-FR') : "Non spécifiée"}
+                                        </span>
+                                    </li>
+                                </ul>
 
+                                <button 
+                                    onClick={handlePostuler}
+                                    className="w-full mt-6 bg-[#3730A3] hover:bg-[#2e2885] text-white px-4 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition shadow-md"
+                                >
+                                    <FaPaperPlane />
+                                    Postuler maintenant
+                                </button>
+                            </div>
                         </div>
 
                     </div>
-
-                    {/* BOUTON POSTULER (en bas sur mobile) */}
-                    <div className="bg-white rounded-xl p-4 ">
-                        <div className="flex justify-end gap-2">
-                            <button className=" bg-[#3B82F6] text-white px-4 py-3 text-sm rounded-lg font-semibold flex items-center justify-center gap-2 transition shadow-md">
-                                <FaPaperPlane />
-                                Postuler maintenant
-                            </button>
-                            <button className="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-lg transition">
-                                <FaShareAlt />
-                            </button>
-                        </div>
-                    </div>
-
                 </div>               
 
             </div>
-
         </div>
     )
 }

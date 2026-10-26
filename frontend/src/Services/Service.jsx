@@ -284,8 +284,11 @@ export const updateStatutCandidature = async (id, nouveauStatut, token) => {
 
 // Postuler à une offre
 export const postuler = async (idOffre, token) => {
-    const response = await axios.post(`${API_URL}/Candidature/postuler/${idOffre}`, null, {
-        headers: { 'Authorization': `Bearer ${token}` }
+    const response = await axios.post(`${API_URL}/Candidature/postuler/${idOffre}`, {}, {
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
     })
     return response.data
 }
@@ -360,5 +363,84 @@ export const adminDeleteOffre = async (id, token) => {
     const response = await axios.delete(`${API_URL}/Offre/admin/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
     })
+    return response.data
+}
+
+// Créer un entretien (Entreprise)
+export const creerEntretien = async (idCandidature, data, token) => {
+    const response = await axios.post(`${API_URL}/Offre/candidature/${idCandidature}/entretien`, data, {
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+    })
+    return response.data
+}
+
+// Récupérer mes entretiens (Candidat)
+export const getMesEntretiens = async (token) => {
+    const response = await axios.get(`${API_URL}/Offre/candidat/mes-entretiens`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+    return response.data
+}
+
+// Récupérer mes documents
+export const getMesDocuments = async (token) => {
+    const response = await axios.get(`${API_URL}/Document/mes-documents`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+    return response.data
+}
+
+// Uploader un document
+export const uploadDocument = async (file, typeDocument, token) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('typeDocument', typeDocument)
+
+    const response = await axios.post(`${API_URL}/Document/upload`, formData, {
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    return response.data
+}
+
+// Supprimer un document
+export const deleteDocument = async (id, token) => {
+    const response = await axios.delete(`${API_URL}/Document/${id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+    return response.data
+}
+
+// Connexion / Inscription via Google
+export const loginWithGoogle = async (googleToken, role) => {
+    const response = await axios.post(`${API_URL}/Auth/google-login`, {
+        token: googleToken,
+        role: role 
+    })
+    return response.data
+}
+
+//  Récupérer la liste publique de toutes les entreprises (sans token)
+export const getEntreprisesPubliques = async () => {
+    const response = await axios.get(`${API_URL}/User/entreprises`)
+    return response.data
+}
+
+// Récupérer les détails d'une entreprise spécifique par son ID (Public)
+export const getEntrepriseById = async (id) => {
+    const response = await axios.get(`${API_URL}/User/entreprise/${id}`)
+    return response.data
+}
+
+export const getOffresByEntreprise = async (idEntreprise) => {
+    const response = await axios.get(`${API_URL}/Offre/entreprise/${idEntreprise}`)
+    return response.data
+}
+
+// Récupérer les détails d'une offre spécifique (Public)
+export const getOffreDetailPublique = async (id) => {
+    const response = await axios.get(`${API_URL}/Offre/publique/${id}`)
     return response.data
 }

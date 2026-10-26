@@ -88,8 +88,7 @@ export default function DashboardLayout () {
                     </div>
                     <nav className="flex-1 space-y-1">
                         {/* Menu principal */}
-                        <div>
-                            {/* <p className=" hidden lg:block text-xs font-semibold text-slate-500 uppercase tracking-wider mt-4 mb-2">PRINCIPAL</p> */}                        
+                        <div>                        
                             <Link to="/dashboard" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
                                 <LuLayoutDashboard />
                             {isSidebarOpen && <span className="hidden lg:block text-sm font-medium">Dashboard</span>}
@@ -109,7 +108,6 @@ export default function DashboardLayout () {
 
                         {/* Emploi */}
                         <div>
-                        {/* <p className="hidden lg:block text-xs font-semibold text-slate-500 uppercase tracking-wider mt-4 mb-2">EMPLOI</p>  */}
 
                             <Link to="/dashboard/offre" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
                                 <FaMagic />
@@ -134,22 +132,20 @@ export default function DashboardLayout () {
 
                         {/* Communication */}
                         <div>
-                            {/* <p className="hidden lg:block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-4">COMMUNICATION</p>  */}
-
-                            <Link to="/dashboard/message" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
+                            
+                            {/* <Link to="/dashboard/message" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
                                 <FaRegEnvelope />
                                 {isSidebarOpen && <span className="hidden lg:block text-sm font-medium">Messages</span>}
-                            </Link>
+                            </Link> */}
 
-                            <Link to="/dashboard/notification" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
+                            {/* <Link to="/dashboard/notification" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
                                 <FaRegBell />
                                 {isSidebarOpen && <span className="hidden lg:block text-sm font-medium">Notifications</span>}
-                            </Link>
+                            </Link> */}
                         </div>
 
                         {/* Compte */}
                         <div>
-                            {/* <p className="hidden lg:block text-xs font-semibold text-slate-500 uppercase tracking-wider mt-4 mb-2">Compte</p>  */}
 
                             <Link to="/dashboard/document" className={`${isSidebarOpen ? 'justify-start gap-3' : 'justify-center'} flex text-sm items-center gap-3  py-2.5 rounded-lg text-gray-800  transition`}>
                                 <FaFileAlt />

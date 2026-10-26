@@ -205,6 +205,54 @@ public class UserController : ControllerBase
             estProfilComplet = entreprise.EstProfilComplet
         });
     }
+
+    [HttpGet("entreprises")] 
+    [AllowAnonymous] 
+    public async Task<IActionResult> GetEntreprises()
+    {
+        var entreprises = await _context.Utilisateurs
+            .OfType<Entreprise>() 
+            .Where(e => e.EstProfilComplet == true)  
+            .Select(e => new 
+            {
+                e.Id,
+                e.NomSociete,      
+                e.SecteurActivite,  
+                e.UrlLogo,          
+                               
+                Ville = e.Adresse ?? "Adresse non précisée" 
+            })
+            .ToListAsync();
+
+        return Ok(entreprises);
+    }
+
+    [HttpGet("entreprise/{id}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetEntrepriseById(int id)
+    {
+        var entreprise = await _context.Utilisateurs
+            .OfType<Entreprise>()
+            .Where(e => e.Id == id)
+            .Select(e => new 
+            {
+                e.Id,
+                e.NomSociete,
+                e.SecteurActivite,
+                e.Adresse,
+                e.Description,
+                e.UrlLogo,
+                e.NbEmployes,
+                e.TelephoneRH,
+                e.NbPostesDisponibles
+            })
+            .FirstOrDefaultAsync();
+
+        if (entreprise == null)
+            return NotFound(new { message = "Entreprise introuvable." });
+
+        return Ok(entreprise);
+    }
 }
 
 

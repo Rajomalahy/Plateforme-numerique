@@ -1,9 +1,6 @@
 import { IoIosSearch } from "react-icons/io"
 import { MdOutlinePlace } from "react-icons/md"
 import { RiContractLine } from "react-icons/ri"
-import un from '../../assets/un.jpg'
-import deux from '../../assets/deux.jpg'
-import trois from '../../assets/trois.jpg'
 import { FaHome } from "react-icons/fa"
 import { Link } from 'react-router-dom'
 import Offre from "./Offre"
@@ -11,44 +8,8 @@ import Offre from "./Offre"
 
 export default function PageOffre () {
 
-    const offres = [
-        {
-            id : 1,
-            logo : un,
-            nom : 'Stage pré-embauche',
-            entreprise : 'work',
-            lieu : 'Tamatave',
-            type : 'Stage',
-            travail : 'remote',
-            date : 'il y a 3 jours',
-            limite : 'Ajourd\'hui'
-        },
-        {
-            id : 1,
-            logo : deux,
-            nom : 'Conseiller client bilingue',
-            entreprise : 'work',
-            lieu : 'Tana',
-            type : 'CDI',
-            travail : 'sur site',
-            date : 'hier',
-            limite : 'demain'
-        },
-        {
-            id : 1,
-            logo : trois,
-            nom : 'Supervisieur call',
-            entreprise : 'work',
-            lieu : 'Diego',
-            type : 'CDD',
-            travail : 'Hybride',
-            date : 'Lundi',
-            limite : '12 octobre 2026'
-        }
-    ]
-
     return (
-        <div className="mt-20">
+        <div className="mt-30">
 
             <div className="max-w-7xl mx-auto">
                 <nav className="flex items-center gap-2 text-sm text-gray-600 flex-wrap">

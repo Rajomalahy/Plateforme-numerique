@@ -315,4 +315,119 @@ public async Task<IActionResult> GetAllOffres()
 
     return Ok(offres);
 }
+
+
+        // Créer un entretien pour une candidature (Entreprise uniquement)
+    [HttpPost("candidature/{idCandidature}/entretien")]
+    public async Task<IActionResult> CreerEntretien(int idCandidature, [FromBody] CreerEntretienDto dto)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) return Unauthorized();
+        var userId = int.Parse(userIdClaim);
+
+        // Vérifier que la candidature existe et appartient à une offre de cette entreprise
+        var candidature = await _context.Candidatures
+            .Include(c => c.Offre)
+            .FirstOrDefaultAsync(c => c.Id == idCandidature && c.Offre.IdEntreprise == userId);
+
+        if (candidature == null)
+            return NotFound(new { message = "Candidature introuvable ou vous n'avez pas les droits." });
+
+        // Créer l'entretien
+        var entretien = new Entretien
+        {
+            IdCandidature = idCandidature,
+            DateHeure = dto.DateHeure,
+            Type = dto.Type,
+            LienVisio = dto.LienVisio,
+            Lieu = dto.Lieu,
+            Commentaire = dto.Commentaire
+        };
+
+        _context.Entretiens.Add(entretien);
+        await _context.SaveChangesAsync();
+
+        // Optionnel : Changer automatiquement le statut de la candidature en "En entretien"
+        candidature.Statut = "En entretien";
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Entretien programmé avec succès !" });
+    }
+
+    [HttpGet("candidat/mes-entretiens")]
+    public async Task<IActionResult> GetMesEntretiens()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) return Unauthorized();
+        var userId = int.Parse(userIdClaim);
+
+        var entretiens = await _context.Entretiens
+            .Include(e => e.Candidature).ThenInclude(c => c.Offre).ThenInclude(o => o.Entreprise)
+            .Where(e => e.Candidature.IdCandidat == userId)
+            .Select(e => new {
+                e.Id,
+                e.DateHeure,
+                e.Type,
+                e.LienVisio,
+                e.Lieu,
+                e.Commentaire,
+                Entreprise = e.Candidature.Offre.Entreprise.NomSociete,
+                Poste = e.Candidature.Offre.Titre
+            })
+            .OrderBy(e => e.DateHeure)
+            .ToListAsync();
+
+        return Ok(entretiens);
+    }
+
+    [HttpGet("entreprise/{idEntreprise}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetOffresByEntreprise(int idEntreprise)
+    {
+        var offres = await _context.Offres
+            .Include(o => o.Ville)
+            .Where(o => o.IdEntreprise == idEntreprise && (o.Statut == "Active" || o.Statut == "Publiée"))
+            .Select(o => new {
+                o.Id,
+                o.Titre,
+                o.TypeContrat,
+                Ville = o.Ville.Nom,
+                o.DatePublication,
+                o.DateLimite
+            })
+            .OrderByDescending(o => o.DatePublication)
+            .ToListAsync();
+
+        return Ok(offres);
+    }
+
+    [HttpGet("publique/{id}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetOffreDetailPublique(int id)
+    {
+        var offre = await _context.Offres
+            .Include(o => o.Ville)
+            .Include(o => o.Entreprise)
+            .Where(o => o.Id == id && (o.Statut == "Active" || o.Statut == "Publiée"))
+            .Select(o => new {
+                o.Id,
+                o.Titre,
+                o.Description, 
+                o.TypeContrat,
+                o.SalaireMin,
+                o.SalaireMax,
+                o.DatePublication,
+                o.DateLimite,
+                Ville = o.Ville.Nom,
+                EntrepriseNom = o.Entreprise.NomSociete,
+                EntrepriseLogo = o.Entreprise.UrlLogo,
+                Secteur = o.Entreprise.SecteurActivite
+            })
+            .FirstOrDefaultAsync();
+
+        if (offre == null)
+            return NotFound(new { message = "Offre introuvable ou expirée." });
+
+        return Ok(offre);
+    }
 }
